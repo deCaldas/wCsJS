@@ -25,3 +25,11 @@ dist-ssr
 
 # directories to my local machine
 ../community_modules
+./public
+
+
+# image and json
+package-lock.json
+./package-lock.json
+./javascript.svg
+./enterpreneur(D~).png
