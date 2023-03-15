@@ -1,4 +1,4 @@
-class MyElement extends HTMLElement {
+export default class MyElement extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });

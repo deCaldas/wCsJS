@@ -1,19 +1,44 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-// aquí es donde añadimos nuestras configuraciones
 module.exports = {
-
-  // entry nos permite fijar nuestro punto de entrada
   entry: "./src/index.js",
-
-  // output es el lugar a donde enviamos lo que nos prepara webpack (podríamos establecer un directorio, entre otras caracteristicas), aunque webpack ya tiene una caracteristica para esto (dist)
   output: {
     path: path.resolve(__dirname, "dist"),
-    
-    // utilizamos el `path` requerido de "node" para usar `resolve` que ubica nuestro proyecto
     filename: "main.js",
   },
   resolve: {
-    // aquí agregamos las extensiones con las que trabajaremos
-    extensions: [".js"]
-}}
+    extensions: [".js"],
+  },
+  module: {
+    rules: [
+      { 
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: ['@babel/preset-env'],
+            }
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "index.html",
+      filename: "index.html",
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+    }),
+  ],
+};
